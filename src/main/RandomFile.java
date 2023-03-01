@@ -5,10 +5,8 @@ package main;
  * 
  * */
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -122,7 +120,6 @@ public class RandomFile {
 
 		// object to be written to file
 		RandomAccessEmployeeRecord record;
-		;
 
 		try // output values to file
 		{

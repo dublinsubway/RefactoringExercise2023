@@ -22,8 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-import main.*;
-
 public class SearchByIdDialog extends JDialog implements ActionListener {
 	EmployeeDetails parent;
 	JButton search, cancel;

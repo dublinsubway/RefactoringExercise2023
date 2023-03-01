@@ -99,7 +99,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 				if(field == ppsField)
 					field.setDocument(new JTextFieldLimit(9));
 				else
-				field.setDocument(new JTextFieldLimit(20));
+				 field.setDocument(new JTextFieldLimit(20));
 			}// end else if
 		}// end for
 		idField.setText(Integer.toString(this.parent.getNextFreeId()));
