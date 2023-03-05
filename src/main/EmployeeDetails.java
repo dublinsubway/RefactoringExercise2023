@@ -365,7 +365,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
     private void displayEmployeeSummaryDialog() {
         // display Employee summary dialog if these is someone to display
         if (isSomeoneToDisplay())
-            new EmployeeSummaryDialog(getAllEmloyees());
+            new EmployeeSummaryDialog(getAllEmployees());
     }// end displaySummaryDialog
 
     // display search by ID dialog
@@ -460,16 +460,14 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
     public void searchEmployeeById() {
         boolean found = false;
 
-        try {// try to read correct correct from input
+        try {// try to read correct data from input
             // if any active Employee record search for ID else do nothing
             if (isSomeoneToDisplay()) {
                 firstRecord();// look for first record
                 int firstId = currentEmployee.getEmployeeId();
                 // if ID to search is already displayed do nothing else loop
                 // through records
-                if (searchByIdField.getText().trim().equals(idField.getText().trim()))
-                    found = true;
-                else if (searchByIdField.getText().trim().equals(Integer.toString(currentEmployee.getEmployeeId()))) {
+                if (searchByIdField.getText().trim().equals(Integer.toString(currentEmployee.getEmployeeId()))) {
                     found = true;
                     displayRecords(currentEmployee);
                 } // end else if
@@ -601,7 +599,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
     }// end deleteDecord
 
     // create vector of vectors with all Employee details
-    private Vector<Object> getAllEmloyees() {
+    private Vector<Object> getAllEmployees() {
         // vector of Employee objects
         Vector<Object> allEmployee = new Vector<Object>();
         Vector<Object> empDetails;// vector of each employee details
@@ -712,70 +710,83 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
         return anyChanges;
     }// end checkForChanges
 
-    // check for input in text fields
     private boolean checkInput() {
+        return checkInput(ppsField, surnameField, firstNameField, genderCombo, departmentCombo,
+                salaryField, fullTimeCombo, currentByteStart);
+    }
+
+    // check for input in text fields
+    protected boolean checkInput(JTextField ppsJTF, JTextField surnameJTF, JTextField firstNameJTF, JComboBox genderCB,
+                                 JComboBox departmentCB, JTextField salaryJTF, JComboBox fulltimeCB, long startByte) {
         boolean valid = true;
         // if any of inputs are in wrong format, colour text field and display
         // message
-        if (ppsField.isEditable() && (ppsField.getText().trim().isEmpty() ||
-                correctPps(ppsField.getText().trim(), currentByteStart))) {
-            ppsField.setBackground(new Color(255, 150, 150));
+        if (ppsJTF.isEditable() && (ppsJTF.getText().trim().isEmpty() ||
+                correctPps(ppsJTF.getText().trim(), currentByteStart))) {
+            ppsJTF.setBackground(new Color(255, 150, 150));
             valid = false;
         } // end if
-        if (surnameField.isEditable() && surnameField.getText().trim().isEmpty()) {
-            surnameField.setBackground(new Color(255, 150, 150));
+        if (surnameJTF.isEditable() && surnameJTF.getText().trim().isEmpty()) {
+            surnameJTF.setBackground(new Color(255, 150, 150));
             valid = false;
         } // end if
-        if (firstNameField.isEditable() && firstNameField.getText().trim().isEmpty()) {
-            firstNameField.setBackground(new Color(255, 150, 150));
+        if (firstNameJTF.isEditable() && firstNameJTF.getText().trim().isEmpty()) {
+            firstNameJTF.setBackground(new Color(255, 150, 150));
             valid = false;
         } // end if
-        if (genderCombo.getSelectedIndex() == 0 && genderCombo.isEnabled()) {
-            genderCombo.setBackground(new Color(255, 150, 150));
+        if (genderCB.getSelectedIndex() == 0 && genderCB.isEnabled()) {
+            genderCB.setBackground(new Color(255, 150, 150));
             valid = false;
         } // end if
-        if (departmentCombo.getSelectedIndex() == 0 && departmentCombo.isEnabled()) {
-            departmentCombo.setBackground(new Color(255, 150, 150));
+        if (departmentCB.getSelectedIndex() == 0 && departmentCB.isEnabled()) {
+            departmentCB.setBackground(new Color(255, 150, 150));
             valid = false;
         } // end if
         try {// try to get values from text field
-            Double.parseDouble(salaryField.getText());
+            Double.parseDouble(salaryJTF.getText());
             // check if salary is greater than 0
-            if (Double.parseDouble(salaryField.getText()) < 0) {
-                salaryField.setBackground(new Color(255, 150, 150));
+            if (Double.parseDouble(salaryJTF.getText()) < 0) {
+                salaryJTF.setBackground(new Color(255, 150, 150));
                 valid = false;
             } // end if
         } // end try
         catch (NumberFormatException num) {
-            if (salaryField.isEditable()) {
-                salaryField.setBackground(new Color(255, 150, 150));
+            if (salaryJTF.isEditable()) {
+                salaryJTF.setBackground(new Color(255, 150, 150));
                 valid = false;
             } // end if
         } // end catch
-        if (fullTimeCombo.getSelectedIndex() == 0 && fullTimeCombo.isEnabled()) {
-            fullTimeCombo.setBackground(new Color(255, 150, 150));
+        if (fulltimeCB.getSelectedIndex() == 0 && fulltimeCB.isEnabled()) {
+            fulltimeCB.setBackground(new Color(255, 150, 150));
             valid = false;
         } // end if
         // display message if any input or format is wrong
         if (!valid)
             JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
         // set text field to white colour if text fields are editable
-        if (ppsField.isEditable())
+        if (ppsJTF.isEditable() && startByte != -1)
             setToWhite();
 
         return valid;
     }
 
-    // set text field background colour to white
     private void setToWhite() {
-        ppsField.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
-        surnameField.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
-        firstNameField.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
-        salaryField.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
-        genderCombo.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
-        departmentCombo.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
-        fullTimeCombo.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
-    }// end setToWhite
+        setToWhite(ppsField, surnameField, firstNameField, genderCombo, departmentCombo,
+                salaryField, fullTimeCombo);
+    }
+
+    // set text field background colour to white
+    protected void setToWhite(JTextField ppsJTF, JTextField surnameJTF, JTextField firstNameJTF, JComboBox genderCB,
+                              JComboBox departmentCB, JTextField salaryJTF, JComboBox fulltimeCB) {
+        ppsJTF.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+        surnameJTF.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+        firstNameJTF.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+        genderCB.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+        departmentCB.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+        salaryJTF.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+        fulltimeCB.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+
+    }
 
     // enable text fields for editing
     public void setEnabled(boolean booleanValue) {

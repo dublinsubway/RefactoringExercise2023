@@ -122,70 +122,13 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		this.parent.displayRecords(theEmployee);
 	}
 
-	// check for input in text fields
-	public boolean checkInput() {
-		boolean valid = true;
-		// if any of inputs are in wrong format, colour text field and display message
-		if (ppsField.getText().equals("")) {
-			ppsField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}// end if
-		if (this.parent.correctPps(this.ppsField.getText().trim(), -1)) {
-			ppsField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}// end if
-		if (surnameField.getText().isEmpty()) {
-			surnameField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}// end if
-		if (firstNameField.getText().isEmpty()) {
-			firstNameField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}// end if
-		if (genderCombo.getSelectedIndex() == 0) {
-			genderCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}// end if
-		if (departmentCombo.getSelectedIndex() == 0) {
-			departmentCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}// end if
-		try {// try to get values from text field
-			Double.parseDouble(salaryField.getText());
-			// check if salary is greater than 0
-			if (Double.parseDouble(salaryField.getText()) < 0) {
-				salaryField.setBackground(new Color(255, 150, 150));
-				valid = false;
-			}// end if
-		}// end try
-		catch (NumberFormatException num) {
-			salaryField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}// end catch
-		if (fullTimeCombo.getSelectedIndex() == 0) {
-			fullTimeCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}// end if
-		return valid;
-	}// end checkInput
-
-	// set text field to white colour
-	public void setToWhite() {
-		ppsField.setBackground(Color.WHITE);
-		surnameField.setBackground(Color.WHITE);
-		firstNameField.setBackground(Color.WHITE);
-		salaryField.setBackground(Color.WHITE);
-		genderCombo.setBackground(Color.WHITE);
-		departmentCombo.setBackground(Color.WHITE);
-		fullTimeCombo.setBackground(Color.WHITE);
-	}// end setToWhite
-
 	// action performed
 	public void actionPerformed(ActionEvent e) {
 		// if chosen option save, save record to file
 		if (e.getSource() == save) {
 			// if inputs correct, save record
-			if (checkInput()) {
+			if (parent.checkInput(ppsField, surnameField, firstNameField, genderCombo, departmentCombo,
+					salaryField, fullTimeCombo, -1)) {
 				addRecord();// add record to file
 				dispose();// dispose dialog
 				this.parent.changesMade = true;
@@ -193,7 +136,8 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			// else display message and set text fields to white colour
 			else {
 				JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
-				setToWhite();
+				parent.setToWhite(ppsField, surnameField, firstNameField, genderCombo, departmentCombo,
+						salaryField, fullTimeCombo);
 			}// end else
 		}// end if
 		else if (e.getSource() == cancel)
