@@ -969,8 +969,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			int index = (int) (rnd.nextFloat() * fileNameChars.length());
 			fileName.append(fileNameChars.charAt(index));
 		}
-		String generatedfileName = fileName.toString();
-		return generatedfileName;
+		return fileName.toString();
 	}// end getFileName
 
 	// create file with generated file name when application is opened
@@ -985,7 +984,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// action listener for buttons, text field and menu items
 	public void actionPerformed(ActionEvent e) {
 
-		// No checks for changes/input
+		// No checks needed  for changes/input
 		if (e.getSource() == searchId || e.getSource() == searchByIdField)
 			searchEmployeeById();
 		else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
