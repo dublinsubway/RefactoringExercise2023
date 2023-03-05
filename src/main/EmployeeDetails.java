@@ -971,8 +971,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
         } // end else
     }// end exitApp
 
-    // generate 20 character long file name
-    private String getFileName() {
+    // create file with generated file name when application is opened
+    private void createRandomFile() {
+        // generate 20 character long file name
         String fileNameChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-";
         StringBuilder fileName = new StringBuilder();
         Random rnd = new Random();
@@ -981,12 +982,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
             int index = (int) (rnd.nextFloat() * fileNameChars.length());
             fileName.append(fileNameChars.charAt(index));
         }
-        return fileName.toString();
-    }// end getFileName
-
-    // create file with generated file name when application is opened
-    private void createRandomFile() {
-        generatedFileName = getFileName() + ".dat";
+        generatedFileName = fileName + ".dat";
         // assign generated file name to file
         file = new File(generatedFileName);
         // create file
@@ -995,7 +991,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
     // action listener for buttons, text field and menu items
     public void actionPerformed(ActionEvent e) {
-        // No checks needed  for changes/input
+        // No checks needed for changes/input
         if (e.getSource() == searchId || e.getSource() == searchByIdField)
             searchEmployeeById();
         else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
