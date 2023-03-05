@@ -57,7 +57,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
     // MigLayout common constraints
     private static final String CONSTRAINT_GROWX_PUSHX = "growx, pushx";
     private static final String CONSTRAINT_GROWX_PUSHX_WRAP = "growx, pushx, wrap";
+    // Other constraints
     private static final String TEXTFIELD_BACKGROUND_KEY = "TextField.background";
+    private static final String SAVE_CHANGES_PROMPT = "Do you want to save changes?";
     private static final EmployeeDetails frame = new EmployeeDetails();
     // display files in File Chooser only with extension .dat
     private final FileNameExtensionFilter datfilter = new FileNameExtensionFilter("dat files (*.dat)", "dat");
@@ -821,7 +823,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
         // if old file is not empty or changes has been made, offer user to save
         // old file
         if (file.length() != 0 || change) {
-            int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
+            int returnVal = JOptionPane.showOptionDialog(frame, SAVE_CHANGES_PROMPT, "Save",
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             // if user wants to save file, save it
             if (returnVal == JOptionPane.YES_OPTION) {
@@ -856,7 +858,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
             // if changes has been made to text field offer user to save these
             // changes
             if (change) {
-                int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
+                int returnVal = JOptionPane.showOptionDialog(frame, SAVE_CHANGES_PROMPT, "Save",
                         JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                 // save changes if user choose this option
                 if (returnVal == JOptionPane.YES_OPTION) {
@@ -942,7 +944,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
         // if file is not empty allow to save changes
         if (file.length() != 0) {
             if (changesMade) {
-                int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
+                int returnVal = JOptionPane.showOptionDialog(frame, SAVE_CHANGES_PROMPT, "Save",
                         JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                 // if user chooses to save file, save file
                 if (returnVal == JOptionPane.YES_OPTION) {
