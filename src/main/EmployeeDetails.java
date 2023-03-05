@@ -731,11 +731,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
         boolean valid = true;
         // if any of inputs are in wrong format, colour text field and display
         // message
-        if (ppsField.isEditable() && ppsField.getText().trim().isEmpty()) {
-            ppsField.setBackground(new Color(255, 150, 150));
-            valid = false;
-        } // end if
-        if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), currentByteStart)) {
+        if (ppsField.isEditable() && (ppsField.getText().trim().isEmpty() || correctPps(ppsField.getText().trim(), currentByteStart))) {
             ppsField.setBackground(new Color(255, 150, 150));
             valid = false;
         } // end if
@@ -921,7 +917,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
                 newFile = new File(newFile.getAbsolutePath() + ".dat");
                 // create new file
                 application.createFile(newFile.getAbsolutePath());
-            } // end id
+            } // end if
             else
                 // create new file
                 application.createFile(newFile.getAbsolutePath());
@@ -1001,7 +997,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
     // action listener for buttons, text field and menu items
     public void actionPerformed(ActionEvent e) {
-
         // No checks needed  for changes/input
         if (e.getSource() == searchId || e.getSource() == searchByIdField)
             searchEmployeeById();
