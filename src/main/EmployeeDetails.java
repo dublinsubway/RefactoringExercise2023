@@ -57,6 +57,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// MigLayout common constraints
 	private static final String CONSTRAINT_GROWX_PUSHX = "growx, pushx";
 	private static final String CONSTRAINT_GROWX_PUSHX_WRAP = "growx, pushx, wrap";
+	private static final String TEXTFIELD_BACKGROUND_KEY = "TextField.background";
 	// hold object start position in file
 	private long currentByteStart = 0;
 	private RandomFile application = new RandomFile();
@@ -763,13 +764,13 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	// set text field background colour to white
 	private void setToWhite() {
-		ppsField.setBackground(UIManager.getColor("TextField.background"));
-		surnameField.setBackground(UIManager.getColor("TextField.background"));
-		firstNameField.setBackground(UIManager.getColor("TextField.background"));
-		salaryField.setBackground(UIManager.getColor("TextField.background"));
-		genderCombo.setBackground(UIManager.getColor("TextField.background"));
-		departmentCombo.setBackground(UIManager.getColor("TextField.background"));
-		fullTimeCombo.setBackground(UIManager.getColor("TextField.background"));
+		ppsField.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+		surnameField.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+		firstNameField.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+		salaryField.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+		genderCombo.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+		departmentCombo.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
+		fullTimeCombo.setBackground(UIManager.getColor(TEXTFIELD_BACKGROUND_KEY));
 	}// end setToWhite
 
 	// enable text fields for editing
